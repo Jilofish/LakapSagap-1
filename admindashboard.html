@@ -362,17 +362,38 @@
           <div class="flex items-center justify-between p-5 bg-white rounded-b-2xl shadow-md shadow-green-200 cursor-default">
             <div class="flex items-center"> 
               <div>
-                <div class="text-lg font-bold text-green-700">Received Stocks</div>
+                <div class="text-lg font-bold text-green-700" >Received Stocks</div>
                   <div class="flex items-center pt-3">
-                    <div class="text-5xl font-bold text-green-700">1083</div>
+                    <div class="text-5xl font-bold text-green-700" id="total-received-boxes">Loading...</div>
                   </div>
                    
                   <div class="flex items-center">
-                    <div class="sm:text-sm md:text-base lg:text-xs font-regular text-gray-400 mt-3 mr-2">January 1, 2023 - March 12, 2024 </div>
+                    <div class="sm:text-sm md:text-base lg:text-xs font-regular text-gray-400 mt-3 mr-2" id="date-range">Loading...</div>
                   </div>
               </div>
             </div>
-
+            
+            <script>
+              document.addEventListener("DOMContentLoaded", async function() {
+                try {
+                  // Fetch total received boxes and date range from the server
+                  const response = await fetch('http://localhost:8080/received-stocks-info');
+                  if (!response.ok) {
+                    throw new Error('Failed to fetch received stocks info');
+                  }
+                  const { total_received_boxes, date_range } = await response.json();
+            
+                  // Update the HTML to display total received boxes and date range
+                  document.getElementById("total-received-boxes").textContent = total_received_boxes;
+                  document.getElementById("date-range").textContent = date_range;
+                } catch (error) {
+                  console.error('Error fetching received stocks info:', error.message);
+                  // Display an error message on the webpage if fetching fails
+                  document.getElementById("stocks-info-error").textContent = 'An error occurred while fetching received stocks info';
+                }
+              });
+            </script>
+            
             <!--Received Donations Icon--> 
             <div class="px-4">
               <i class="fa-solid fa-truck-ramp-box text-green-700 text-4xl"></i>
@@ -522,23 +543,7 @@
             <div class=" text-red-700 text-md mb-3 cursor-default">
               <i class="fa-solid fa-warehouse text-green-700"></i> <b class="text-green-700 text-1xl mt-3 ml-4">Current Warehouse Capacity</b>
             </div>
-           
-            <!-- Warehouse Capacity -->
-            <div class="mb-2">
-              
-              <!-- Legends go here -->
-              <div class="flex justify-center">
-                <div class="legend-item flex items-center mr-4">
-                  <div class="legend-square bg-green-500 w-2 h-2 mr-2"></div>
-                  <span>Available Space </span>
-                </div>
 
-                <div class="legend-item flex items-center mr-4">
-                  <div class="legend-square bg-red-500 w-2 h-2 mr-2"></div>
-                  <span>Occupied</span>
-                </div>
-             </div>
-            </div>
 
             <!-- Chart -->
             <div class="w-64 h-64 mb-4 mx-auto flex items-center justify-center">
@@ -546,9 +551,58 @@
             </div>
 
             <div class="legend-item flex items-center mr-4">
-              <p class="truncate text-[11px] mx-auto mt-1 mb-1 font-regular leading-5 mb-2 text-gray-500"> Storage Update: 3160 of 5000 Occupied</p>
+              <p id="storageUpdate" class="truncate text-[11px] mx-auto mt-1 mb-1 font-regular leading-5 mb-2 text-gray-500"></p>
             </div>           
-
+            <script>
+              async function fetchWarehouseCapacity() {
+                try {
+                  const response = await fetch('http://localhost:8080/api/warehouse-capacity');
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  const data = await response.json();
+                  renderDonutChart(data);
+                  document.getElementById('storageUpdate').innerText = `Storage Update: ${data.totalOccupied} of ${data.totalCapacity} Occupied`;
+                } catch (error) {
+                  console.error('Error fetching warehouse capacity:', error);
+                }
+              }
+          
+              function renderDonutChart(data) {
+                const ctx = document.getElementById('donut-chart').getContext('2d');
+                const chartData = {
+                  labels: ['Occupied', 'Available Space'],
+                  datasets: [{
+                    label: '',
+                    data: [data.totalOccupied, data.totalCapacity - data.totalOccupied],
+                    backgroundColor: ['#EA4335', '#34A853'],
+                    hoverOffset: 4
+                  }]
+                };
+          
+                const chartOptions = {
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  },
+                  aspectRatio: 1,
+                  cutout: '50%',
+                  animation: {
+                    animateRotate: false
+                  }
+                };
+          
+                new Chart(ctx, {
+                  type: 'doughnut',
+                  data: chartData,
+                  options: chartOptions
+                });
+              }
+          
+              // Fetch and render the data on page load
+              fetchWarehouseCapacity();
+            </script>
             <!-- First floor Rack Lists -->
             <!-- 1st floor capacity -->
           <div class="mb-1 mt-3 flex items-center justify-between">
@@ -558,55 +612,9 @@
           </div>
 
           <!-- Per Racks capacity -->
-          <div class="flex mt-3 mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 1
-            </div>
+            <div id="rackCapacities"></div>
+            <script src="1stRack.js"></script>
 
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>1600</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 2
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>320</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 3
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>310</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 4
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>205</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              Unspecified
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>50</span> 
-            </div>
-          </div>
             
             <!-- 2nd floor capacity -->
 
@@ -619,76 +627,8 @@
             </div>
 
             <!-- Per Racks capacity -->
-            <div class="flex mt-3 mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 1
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>80</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 2
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>230</span> 
-              </div>
-            </div> 
-            
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 3
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>85</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 4
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>65</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 5
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>95</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 6
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>90</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                Unspecified
-              </div>
-  
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>30</span> 
-              </div>
-            </div> 
-                                
+            <div id="rackCapacities2"></div>
+            <script src="2ndRack.js"></script>                    
             </div>
           </div>
       <!-- Grid 2 close -->
@@ -1021,46 +961,5 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-      // Get the canvas element
-      var canvas = document.getElementById('donut-chart');
-  
-      // Set the chart data
-      var data = {
-          labels: ['Occupied', 'Available Space'],
-          datasets: [{
-              label: '',
-              data: [3160, 1940],
-              backgroundColor: [
-                  '#EA4335',
-                  '#34A853'
-                  
-                  
-              ],
-              hoverOffset: 4
-          }]
-      };
-  
-      // Set the chart options
-      var options = {
-          plugins: {
-              legend: {
-                  display: false
-              }
-          },
-          aspectRatio: 1,
-          cutout: '50%',
-          animation: {
-              animateRotate: false
-          }
-      };
-  
-      // Create the chart
-      var chart = new Chart(canvas, {
-          type: 'doughnut',
-          data: data,
-          options: options
-      });
-    </script>
   </body>
 </html>

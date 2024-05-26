@@ -347,10 +347,10 @@
 
             <!--dropdown for quarterly and annual-->
             <div class="relative ml-auto mr-7">
-              <select id="category-dropdown" name="category"  class="block appearance-none w-full h-9 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
-                <option>Quarterly</option>
-                <option>Semi-Annual</option>
-                <option>Annual</option>
+              <select id="period-dropdown" name="period" class="block appearance-none w-full h-9 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
+                <option value="Quarterly">Quarterly</option>
+                <option value="Semi-Annual">Semi-Annual</option>
+                <option value="Annual">Annual</option>
               </select>
 
               <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -413,7 +413,7 @@
             <div class="overflow-x-auto">
 
               <!-- table content -->
-              <table class="w-full custom-smaller-text justify-center border border-green-500 bg-white shadow-md rounded mb-4 divide-y divide-gray-200">
+              <table id="stock-table" class="w-full custom-smaller-text justify-center border border-green-500 bg-white shadow-md rounded mb-4 divide-y divide-gray-200">
 
                 <!-- columns -->
                 <thead class="bg-green-700 text-white">
@@ -430,149 +430,7 @@
                 </thead>
 
                 <!-- content of columns -->
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 3, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10901</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">3n1 Coffee</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">2,120</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">1st Floor-Rack 2</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">September 21, 2024</td>
-                  </tr>   
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 3, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10902</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Bear Brand Tipid Pack</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">1,500</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">1st Floor-Rack 3</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">December 1, 2024</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 5, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10903</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Corned Beef</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">1,195</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">1st Floor-Rack 4</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">May 21, 2024</td>
-                  </tr>    
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 5, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10904</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Cooking oil</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">750</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">2nd Floor-Rack 2</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">October 26, 2026</td>
-                  </tr>  
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 5, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10905</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Disposable cup</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Plastic</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">1,100</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">Outside</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 15, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10906</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Kaldero - big</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Metal</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">800</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Unspecified</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 25, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10907</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Kumot</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cotton</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Comfort</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">540</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">2nd-Unspecified</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 28, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10908</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Meat loaf</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">2,100</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 2</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">March 25, 2025</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">January 28, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10909</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Meat loaf</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">800</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 2</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">October 21, 2025</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">February 2, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10910</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Rice (50kgs)</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Sacks</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">3,400</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 1</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">November 11, 2024</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">February 2, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10911</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">San Marino</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">810</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 3</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">August 9, 2025</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">February 8, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10912</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Sardines</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">4,210</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 3</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">November 21, 2024</td>
-                  </tr>
-
-                  <tr class="hover:bg-green-100">
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">February 10, 2024</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">10913</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold">Styro cup</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Styrofoam</td>
-                    <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                    <td class="text-center px-4 sm:px-5 py-2 font-bold">5,000</td>
-                    <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">Outside</td>
-                    <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                  </tr>
+                <tbody class="bg-white divide-y divide-gray-200">  
                 </tbody>
               </table>
               
@@ -607,24 +465,46 @@
         </div>
       </div>
     </div>
-
+    
+    <script>
+      document.getElementById('period-dropdown').addEventListener('change', async function() {
+        const period = this.value;
+        const response = await fetch(`http://localhost:8080/stock?period=${period}`);
+        const stocks = await response.json();
+  
+        console.log('Stocks received:', stocks);  // Log the received stocks data
+  
+        const tableBody = document.querySelector('#stock-table tbody');
+        tableBody.innerHTML = ''; // Clear previous rows
+  
+        stocks.forEach(stock => {
+          console.log('Date Received:', stock.date_received);  // Log the date_received value
+          const row = document.createElement('tr');
+          row.classList.add('hover:bg-green-100');
+          row.innerHTML = `
+            <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">${new Date(stock.date_received).toLocaleDateString()}</td>
+            <td class="text-center px-4 sm:px-6 py-2 font-bold">${stock.item_code}</td>
+            <td class="text-center px-4 sm:px-8 py-2 font-bold">${stock.item}</td>
+            <td class="text-center px-4 sm:px-6 py-2 font-bold">${stock.item_type}</td>
+            <td class="text-center px-4 sm:px-6 py-2 font-bold">${stock.category}</td>
+            <td class="text-center px-4 sm:px-5 py-2 font-bold">${stock.pieces}</td>
+            <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">${stock.floor}-${stock.rack}</td>
+            <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">${new Date(stock.expiry_date).toLocaleDateString()}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      });
+  
+      // Trigger the change event on load to fetch initial data
+      document.getElementById('period-dropdown').dispatchEvent(new Event('change'));
+    </script>
+  
     <!-- JS SCRIPT -->
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 
      <!-- my custom script -->
      <script src="script.js"></script>
 
-     <!-- Dropdown Menu Toggle Function -->
-     <script>
-       // Toggle dropdown menu visibility
-       function toggleDropdown(type) {
-       // Toggle visibility for the specified dropdown
-     
-         if (type === 'account'){
-           document.querySelector('#arrow-account').classList.toggle('rotate-0');
-         }
-           }
-    </script>
      
     <script>
      // Function to switch images based on screen size

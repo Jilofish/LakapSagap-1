@@ -339,11 +339,34 @@
           <!-- warehouse capacity status -->
           <p class="truncate text-sm font-regular leading-5 mt-5 mb-2 font-bold text-gray-700">  Warehouse Current Capacity</p>
           <div class="w-full h-4 bg-gray-100 rounded-full bg-white border border-gray-500">
-            <div class="bg-green-700 h-4 font-bold text-[12px] text-white text-center p-0.8 leading-none rounded-full flex items-center justify-center" style="width: 63.2%">   
+            <div id="capacityFill" class="bg-green-700 h-4 font-bold text-[12px] text-white text-center p-0.8 leading-none rounded-full flex items-center justify-center" style="width: 63.2%">   
           </div>
          
           </div>
-          <p class="mr-auto text-[11px] mt-1 mb-3 font-regular text-gray-500">3160 of 5000 Occupied</p>
+          <p id="capacityText" class="mr-auto text-[11px] mt-1 mb-3 font-regular text-gray-500"></p>
+
+          <script>
+            // Fetch warehouse capacity status
+            fetch('http://localhost:8080/api/warehouse-capacity')
+              .then(response => response.json())
+              .then(data => {
+                const totalOccupied = data.totalOccupied;
+                const totalCapacity = data.totalCapacity;
+                const percentageOccupied = data.percentageOccupied;
+          
+                // Update capacity bar width
+                const capacityFill = document.getElementById('capacityFill');
+                capacityFill.style.width = `${percentageOccupied}%`;
+          
+                // Update capacity text
+                const capacityText = document.getElementById('capacityText');
+                capacityText.textContent = `${totalOccupied} of ${totalCapacity} Occupied`;
+              })
+              .catch(error => {
+                console.error('Error fetching warehouse capacity status:', error);
+                // Handle error if needed
+              });
+          </script>
 
           <!-- to open warehouse settings -->
           <button type="button" id="openSettingsModal" class="w-full text-green-700 p-2 bg-white border border-green-700 hover:bg-green-700 hover:text-white rounded-full text-xs">
@@ -361,57 +384,10 @@
             </span>
           </div>
 
-          <!-- Per Racks capacity -->
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 1
-            </div>
+          <!-- Container for rack capacities -->
+          <div id="rackCapacities"></div>
+          <script src="1stRack.js"></script>
 
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>1600</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 2
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>320</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 3
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>310</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              RACK 4
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>205</span> 
-            </div>
-          </div>
-
-          <div class="flex mb-3">
-            <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-              Unspecified
-            </div>
-
-            <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-              <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>50</span> 
-            </div>
-          </div>
-            
             <!-- 2nd floor capacity -->
 
             <div class="border-b border-gray-300 mt-5 my-4"></div>
@@ -423,75 +399,8 @@
             </div>
 
             <!-- Per Racks capacity -->
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 1
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>80</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 2
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>230</span> 
-              </div>
-            </div> 
-            
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 3
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>85</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 4
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>65</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 5
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>95</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                RACK 6
-              </div>
-
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>90</span> 
-              </div>
-            </div> 
-
-            <div class="flex mb-3">
-              <div class="flex w-40 text-sm font-bold items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-slate-200 p-2">
-                Unspecified
-              </div>
-  
-              <div class="w-full bg-green-700 p-2 rounded-tr-lg rounded-br-lg text-white text-xs font-semibold hover:bg-green-900 transition-colors">
-                <i class="fa-solid fa-box-open text-sm ml-3"></i> <span class="mr-3">Boxes: </span> <span>30</span> 
-              </div>
-            </div>
+            <div id="rackCapacities2"></div>
+            <script src="2ndRack.js"></script>
       </div>
       <!-- end of sidebar -->
 
@@ -503,10 +412,25 @@
             <div class="flex justify-end">
                 <a href="#" class="mt-6 ml-0 md:ml-7 block w-full md:w-auto md:max-w-xs justify-center p-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
                     <h5 class="ml-2 text-md font-bold tracking-tight text-gray-900 inline-block">Total No. of Current Stocks: </h5>
-                    <h5 class="ml-2 text-md font-regular items-center text-gray-900 inline-block">25,390</h5>
+                    <h5 id="totalStocksCount" class="ml-2 text-md font-regular items-center text-gray-900 inline-block">25,390</h5>
                 </a>
             </div>
         </div>
+
+        <script>
+          // Fetch total number of current stocks
+          fetch('http://localhost:8080/api/total-pieces')
+            .then(response => response.json())
+            .then(data => {
+              // Update the total number of stocks count
+              const totalStocksCount = document.getElementById('totalStocksCount');
+              totalStocksCount.textContent = data.total_pieces.toLocaleString(); // Format number with commas
+            })
+            .catch(error => {
+              console.error('Error fetching total pieces:', error);
+              // Handle error if needed
+            });
+        </script>
 
             <!-- breadcrump for 2 tabs of kitting page -->   
             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -613,267 +537,8 @@
                 </tr>
               </thead>   
 
-              <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="hover:bg-green-100">
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT010</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">10901</td>
-                  <td class="text-center px-4 sm:px-8 py-2 font-bold">3n1 Coffee</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                  <td class="text-center px-4 sm:px-2 py-2 font-bold">2,120</td>
-                  <td class="text-center px-4 sm:px-2 py-2 font-bold">20</td>
-                  <td class="text-center px-4 sm:px-4 py-2 font-bold whitespace-nowrap">1st Floor-Rack 2</td>
-                  <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">September 21, 2024</td>
-                  <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                    <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </button>
-                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>  
-                  </td>
-                </tr>
-                        
-                <tr class="hover:bg-green-100">
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT010</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">10902</td>
-                  <td class="text-center px-4 sm:px-8 py-2 font-bold">Bear Brand Tipid Pack</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                  <td class="text-center px-4 sm:px-2 py-2 font-bold">1,500</td>
-                  <td class="text-center px-4 sm:px-2 py-2 font-bold">17</td>
-                  <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">1st Floor-Rack 3</td>
-                  <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">December 1, 2024</td>
-                  <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                      <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                          <i class="fa-regular fa-pen-to-square"></i>
-                      </button>
-                      <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                          <i class="fa-regular fa-trash-can"></i>
-                      </button>
-                  </td>
-              </tr>
-                        
-              <tr class="bg-red-200 hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT010</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10903</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Corned Beef</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">1,195</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">180</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">1st Floor-Rack 4</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">May 21, 2024</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>  
-                </td>
-              </tr>
-                        
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT009</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10904</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Cooking oil</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Sachet</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">750</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">200</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">2nd Floor-Rack 2</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">October 26, 2026</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button> 
-                </td>
-              </tr>
-                      
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT007</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10905</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Disposable cup</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Plastic</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">1,100</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">100</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">Outside</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                  <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-
-                <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                  <i class="fa-regular fa-trash-can"></i>
-                </button>  
-                </td>
-              </tr>
-                    
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT009</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10906</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Kaldero - big</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Metal</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">800</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">200</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Unspecified</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button> 
-                </td>
-              </tr>    
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT008</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10907</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Kumot</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cotton</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Comfort</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">540</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">20</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">2nd-Unspecified</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                      <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                </td> 
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT010</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10908</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Meat loaf</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">2,100</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">21</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 2</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">March 25, 2025</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>  
-                </td>
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT004</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10909</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Meat loaf</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">800</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">60</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 2</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">October 21, 2025</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button> 
-                </td>
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT009</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10910</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Rice (50kgs)</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Sacks</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">1,400</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">1,400</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 1</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">November 11, 2024</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                      <i class="fa-regular fa-trash-can"></i>
-                  </button>  
-                </td>
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT010</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10911</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">San Marino</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">810</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">43</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 3</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">August 9, 2025</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                      <i class="fa-regular fa-trash-can"></i>
-                  </button>  
-                </td>
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT009</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10912</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Sardines</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Cans</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Food</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">4,210</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">205</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">1st floor-Rack 3</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">November 21, 2024</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>  
-                </td>
-              </tr>
-
-              <tr class="hover:bg-green-100">
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">BAT005</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">10913</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold">Styro cup</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Styrofoam</td>
-                <td class="text-center px-4 sm:px-6 py-2 font-bold">Kitchen</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">5,000</td>
-                <td class="text-center px-4 sm:px-2 py-2 font-bold">100</td>
-                <td class="text-center px-4 sm:px-3 py-2 font-bold whitespace-nowrap">Outside</td>
-                <td class="text-center px-4 sm:px-8 py-2 font-bold whitespace-nowrap">None</td>
-                <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
-                  <button id="openEditModal" type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button> 
-                </td>
-              </tr>
+              <tbody id="stockTableBody"class="bg-white divide-y divide-gray-200">
+  
             </tbody>
           </table>
         </div>
@@ -942,9 +607,9 @@
                   <h3 class="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete this product?</h3>
     
                   <a href="adminStockManage.html">
-                    <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" onclick="hideModal()">
-                        Yes, I'm sure
-                    </button>
+                    <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" onclick="handleDeleteConfirmation('{{ itemCode }}')">
+                      Yes, I'm sure
+                  </button>
                   </a>
 
                   <a href="adminStockManage.html">
@@ -1140,7 +805,8 @@
     </div>
     
     <!-- edit item modal--> 
-    <div id="editModal" class="modal hidden fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-auto">
+    <form id="editForm">
+    <div id="edit-modal"  class="modal hidden fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-auto" >
       <div class="flex items-center justify-center min-h-screen">
         
          <!-- main content -->
@@ -1154,38 +820,31 @@
 
             <!-- item input -->
             <div class="-mx-3 md:flex mb-6">
-              <div class="mt-3 md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
-                  Item Code
-                  </label>
-                  <input value="23143" class=" appearance-none block w-full bg-grey-lighter text-black border border-red rounded py-3 px-4 mb-3" type="text" >
-              </div>
 
               <!-- Supplier input -->
               <div class="mt-3 md:w-1/2 px-3">
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
+                  <label for="itemName" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                   Item
                   </label>
-                  <input value="Coffee" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="text" >
+                  <input type="text" id="itemName" name="item" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
               </div>
               </div>
 
               <!-- Type input dropdown -->
               <div class="-mx-3 md:flex mb-6">
                 <div class="mt-3 md:w-1/3 px-3 mb-6 md:mb-0">
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
+                  <label for="itemType" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                       Type
                   </label>
                   
                   <div class="relative">
-                    <select id="category-dropdown" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-200 hover:border-gray-400 px-4 py-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-300">
-                        <option>Sachet</option>
-                        <option>Packs</option>
-                        <option>Cans</option>
-                        <option>Sacks</option>
-                        <option>Bottle</option>
-                        <option class="text-gray-400">&#43; Add type</option>
-                        <option class="text-gray-400">&#8722; Delete category</option>
+                    <select id="itemType" name="item_type" class="block appearance-none w-full h-12 bg-white border border-gray-200 hover:border-gray-400 px-4 py-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-300">
+                        <option value="Sachet">Sachet</option>
+                        <option value="Packs">Packs</option>
+                        <option value="Cans">Cans</option>
+                        <option value="Sacks">Sacks</option>
+                        <option value="Bottle">Bottle</option>
+                        <option value="Box">Box</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -1203,14 +862,12 @@
                   </label>
 
                   <div class="relative">
-                    <select id="category-dropdown" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-200 hover:border-gray-400 px-4 py-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-300">
-                        <option>Food</option>
-                        <option>Hygiene</option>
-                        <option>Comfort</option>
-                        <option>Kitchen</option>
-                        <option>Disaster</option>
-                        <option class="text-gray-400">&#43; Add category</option>
-                        <option class="text-gray-400">&#8722; Delete category</option>
+                    <select id="category" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-200 hover:border-gray-400 px-4 py-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-300">
+                        <option value="Food">Food</option>
+                        <option value="Hygiene">Hygiene</option>
+                        <option value="Comfort">Comfort</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="Disaster">Disaster</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -1222,10 +879,10 @@
 
                 <!-- Supplier input -->
                 <div class="mt-3 md:w-1/3 px-3">
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
+                  <label for="pieces" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">
                   Remaining Quantity
                   </label>
-                  <input value="200" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" type="number" >
+                  <input type="number" id="pieces" name="pieces" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                 </div>
               </div>
 
@@ -1237,10 +894,10 @@
                     </label>
 
                     <div class="relative">
-                      <select id="category-dropdown" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
-                          <option>1st Floor</option>
-                          <option>2nd Floor</option>
-                          <option>Outside</option>
+                      <select id="floor" name="floor" class="block appearance-none w-full h-12 bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
+                          <option value="1st Floor">1st Floor</option>
+                          <option value="2nd Floor">2nd Floor</option>
+                          <option value="Outside">Outside</option>
                       </select>
                       <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                           <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -1253,15 +910,15 @@
                 <div class="mt-3 md:w-1/2 px-3">
 
                   <div class="relative">
-                    <select id="category-dropdown" name="category"  class="block appearance-none w-full mt-6 h-12 bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
-                        <option>Rack 2</option>
-                        <option>Rack 1</option>
-                        <option>Rack 3</option>
-                        <option>Rack 4</option>
-                        <option>Rack 5</option>
-                        <option>Rack 6</option>
-                        <option>Unspecified</option>
-                        <option>Outside</option>
+                    <select id="rack" name="category"  class="block appearance-none w-full mt-6 h-12 bg-white border border-gray-300 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-300">
+                        <option value="Rack 1">Rack 1</option>
+                        <option value="Rack 2">Rack 2</option>
+                        <option value="Rack 3">Rack 3</option>
+                        <option value="Rack 4">Rack 4</option>
+                        <option value="Rack 5">Rack 5</option>
+                        <option value="Rack 6">Rack 6</option>
+                        <option value="Floor">Floor</option>
+                        <option value="Outside">Outside</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -1275,18 +932,18 @@
             <div class="-mx-3 md:flex mb-6">
                 <!-- Item Code input -->
               <div class="mt-3 md:w-1/2 px-3 mb-6 md:mb-0">
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+                  <label for="dateReceived" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
                     Date receive
                   </label>
-                  <input value="03/03/2024" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="date" >
+                  <input type="date" id="dateReceived" name="date_received" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3">
               </div>
 
                <!-- Expiry date input -->
                <div class="mt-3 md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+                <label for="expiryDate" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
                   Expiry date
                 </label>
-                <input value="03/03/2024" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" type="date" >
+                <input type="date" id="expiryDate" name="expiry_date" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3">
               </div>
             </div>
 
@@ -1294,7 +951,7 @@
             <!-- button save -->
             <a href="adminStockManage.html">
               <div class="text-sm mt-5 flex gap-2">
-                <button class="ml-auto cursor-pointer transition-all 
+                <button type="submit" class="ml-auto cursor-pointer transition-all 
                       bg-green-700 text-white px-6 py-2 rounded-lg
                       border-green-800
                       border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
@@ -1304,13 +961,95 @@
               </div>
             </a>
         </div>
+      
       </div>
     </div>
-
+    </form>
      <!-- JS SCRIPT -->
      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 
      <!-- my custom script -->
+     <script> 
+      function formatDate(dateString) {
+      const date = new Date(dateString);
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(date.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${month}/${day}/${year}`;
+    }
+    async function fetchStockItems() {
+        try {
+            const response = await fetch('http://localhost:8080/stock');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const stockItems = await response.json();
+            const tableBody = document.getElementById('stockTableBody');
+    
+            stockItems.forEach(item => {
+                const row = document.createElement('tr');
+    
+                row.innerHTML = `
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">${item.batch_number}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">${item.item_code}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.item}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.item_type}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.category}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.pieces}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.box}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold">${item.floor} / ${item.rack}</td>
+                    <td class="text-center px-4 sm:px-6 py-2 font-bold whitespace-nowrap">${formatDate(item.expiry_date)}</td>        
+                    <td class="text-center px-4 sm:px-4 py-2 flex items-center justify-center">
+                      <button data-modal-target="edit-modal" data-modal-toggle="edit-modal" type="button" class="editBtn mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                      </button>
+                      <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                          <i class="fa-regular fa-trash-can"></i>
+                      </button>  
+                    </td>  
+                    `;
+    
+                tableBody.appendChild(row);
+            });
+            // Get the elements
+            const openEditModalBtns = document.querySelectorAll('[data-modal-target="edit-modal"]');
+            const editModal = document.getElementById('edit-modal');
+            const closeEditModalBtn = document.getElementById('closeEditModal');
+    
+            const openDeleteModalBtns = document.querySelectorAll('[data-modal-target="popup-modal"]');
+            const deleteModal = document.getElementById('popup-modal');
+            const closeDeleteModalBtn = document.getElementById('closeDeleteModal');
+    
+            // Function to open edit modal
+            openEditModalBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                editModal.classList.remove('hidden');
+              });
+            });
+    
+            // Function to close edit modal
+            closeEditModalBtn.addEventListener('click', () => {
+              editModal.classList.add('hidden');
+            });      
+            
+            openDeleteModalBtns.forEach(btn => {
+              btn.addEventListener('click', () => {
+                deleteModal.classList.remove('hidden');
+              });
+            });
+            
+            // Function to close delete modal
+            closeDeleteModalBtn.addEventListener('click', () => {
+              deleteModal.classList.add('hidden');
+            });
+      } catch (error) {
+          console.error('Error fetching stock items:', error);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', fetchStockItems); 
+  </script>
+     <script src="editStock.js"></script>
      <script src="script.js"></script>
  
      <!-- Dropdown Menu Toggle Function -->
@@ -1368,42 +1107,7 @@
               }
           });
         });
-      </script>
-
-      <!-- edi item Functions -->
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const editModal = document.getElementById("editModal");
-          const openEditModalButton = document.getElementById("openEditModal");
-          const closeEditModalButton = document.getElementById("closeEditModal");
-          const saveChangesButton = document.getElementById("saveChanges");
-      
-          // Open the modal when the edit button is clicked
-          openEditModalButton.addEventListener("click", function () {
-            editModal.classList.remove("hidden");
-          });
-      
-          // Close the modal when the close button is clicked
-          closeEditModalButton.addEventListener("click", function () {
-            editModal.classList.add("hidden");
-          });
-      
-          // Save changes (You can replace this with your actual save logic)
-          saveChangesButton.addEventListener("click", function () {
-            // Add your save logic here
-            console.log("Changes saved!");
-            // Close the modal after saving
-            editModal.classList.add("hidden");
-          });
-      
-          // Close the modal when clicking outside the modal content
-          window.addEventListener("click", function (event) {
-            if (event.target === editModal) {
-              editModal.classList.add("hidden");
-            }
-          });
-        });
-      </script>
+      </script>s
 
       <!-- edit warehouse Functions -->
       <script>

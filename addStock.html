@@ -302,26 +302,28 @@
     <div class="w-full min-h-screen bg-gray-200 transition-all main sm:px-32 sm:py-3">
         
       <!-- Add Stock Form -->
+      
       <div class="ml-2 p-2 mb-2">
         <div class="bg-white shadow-md rounded-2xl px-8 pt-10 pb-10 mb-36 flex flex-col my-2">
           <h2 class="block uppercase tracking-wide text-grey-darker text-2xl font-bold mb-2">Receive Stock</h2>
           <div class="border-b border-gray-300 my-4"></div>
-
+          <form id="stock-form">
           <div class="-mx-3 md:flex mb-6 px-12">
             <div class="mt-3 md:w-1/3 px-3 mb-6 md:mb-0">
+              
               <!-- Batch No. Input -->
-              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">Batch No.</label>
-              <input class="appearance block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4 mb-3" type="text">
+              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="batch-number">Batch No.</label>
+              <input id="batch-number" type="number" name="batch_number" value="3" class="appearance block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4 mb-3">
             </div>
 
             <div class="mt-3 md:w-1/3 px-3 mb-6 md:mb-0">
               <!-- Supplier Input -->
-              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="receive-type">
                 Receiving Stock type: 
               </label>
       
               <div class="relative">
-                  <select id="category-dropdown" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                  <select id="receive-type" name="receive_type" class="block appearance-none w-full h-12 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                       <option disabled selected value="" hidden>Select Receive type</option>
                       <option>Local Purchase</option>
                       <option>Donation</option>
@@ -338,8 +340,8 @@
 
             <div class="mt-3 md:w-1/3 px-3">
               <!-- received by Input -->
-              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">Received by</label>
-              <input class="appearance-none block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4" type="text">
+              <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="received-by">Received by</label>
+              <input id="received-by" name="received_by" class="appearance-none block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4" type="text">
             </div>
           </div>
 
@@ -349,31 +351,31 @@
            
               <div class="mt-3 md:w-1/3 px-3 mb-6 md:mb-0">
                   <!-- Truck plate No. Input -->
-                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">Truck plate No.</label>
-                  <input class="appearance block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4 mb-3" type="text">
+                  <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="plate-number">Truck plate No.</label>
+                  <input id="plate-number" name="plate_number" type="text" class="appearance block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4 mb-3">
               </div>
 
               <div class="mt-3 md:w-1/3 px-3 relative">
                 <!-- Driver name Input -->
-                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="item-input">Driver name</label>
+                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="driver-name">Driver name</label>
                 <div class="relative">
-                  <input type="text" class="w-full px-4 h-12 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500">
+                  <input id="driver-name" name="driver_name" type="text" class="w-full px-4 h-12 border border-gray-400 rounded-md focus:outline-none focus:border-indigo-500">
                 </div>
               </div>   
 
                 
               <div class="mt-3 md:w-1/3 px-3">
                 <!-- Supplier Input -->
-                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-first-name">
+                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="supplier">
                     Supplier/organization
                 </label>
           
                 <div class="relative">
-                    <select id="category-dropdown" name="category"  class="block appearance-none w-full h-12 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option disabled selected value=""hidden>Select supplier</option>
-                        <option>Supplier 1</option>
-                        <option>Supplier 1</option>
-                        <option>Supplier 1</option>
+                    <select id="supplier" name="supplier" class="block appearance-none w-full h-12 bg-white border border-gray-400 hover:border-gray-400 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option disabled selected value="" hidden>Select supplier</option>
+                        <option>ABC Distribution</option>
+                        <option>VCARB Foods</option>
+                        <option>Kick Sauber limited</option>
                         <option class="text-gray-400">&#43; Add supplier</option>
                         <option class="text-gray-400">&#8722; Delete supplier</option>
                     </select>
@@ -387,47 +389,38 @@
 
               <div class="mt-3 md:w-1/3 px-3">
                 <!-- Supplier Input -->
-                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="grid-last-name">Date Received</label>
-                <input class="appearance-none block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4" type="date">
+                <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="date-received">Date Received</label>
+                <input id="date-received" name="date_received" class="appearance-none block w-full h-12 bg-grey-lighter text-grey-darker border border-gray-400 rounded py-3 px-4" type="date">
               </div>
           </div>
 
           <!-- Row 2 -->
           <h2 class="block uppercase tracking-wide text-grey-darker text-md font-bold">Stock details</h2>
 
-        <!-- Table for stocks -->
-        <div class="w-full mt-2 flex justify-center flex overflow-x-auto">
-          <div class="overflow-x-auto">
-            <table class="w-full custom-smaller-text bg-white shadow-md rounded mb-4 divide-y divide-gray-200">
-              <thead class="bg-gray-200 text-black text-sm">
-                <tr>
-                  <th class="text-center px-2 sm:px-2 py-2 whitespace-nowrap">Item code</th>
-                  <th class="text-center px-10 sm:px-16 py-2">Item</th>
-                  <th class="text-center px-6 sm:px-12 py-2">Type</th>
-                  <th class="text-center px-6 sm:px-12 py-2">Category</th>
-                  <th class="text-center px-4 sm:px-5 py-2 whitespace-nowrap">QTY (pcs.)</th>
-                  <th class="text-center px-4 sm:px-5 py-2 whitespace-nowrap">QTY (box)</th>
-                  <th class="text-center px-2 sm:px-2 py-2">Floor</th>
-                  <th class="text-center px-2 sm:px-2 py-2">Rack</th>
-                  <th class="text-center px-10 sm:px-16 py-2 whitespace-nowrap">Expiry date</th>      
-                </tr>
-              </thead>   
-
-                <!-- content of table -->
-                <tbody class="bg-white text-black font-regular text-sm">
-
+          <!-- Table for stocks -->
+          <div class="w-full mt-2 flex justify-center flex overflow-x-auto">
+            <div class="overflow-x-auto">
+                <table class="w-full custom-smaller-text bg-white shadow-md rounded mb-4 divide-y divide-gray-200">
+                  <thead class="bg-gray-200 text-black text-sm">
                     <tr>
-                      <!-- item code input -->
-                      <td class="text-left px-2 py-2 whitespace-nowrap"><input type="number" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
+                      <th class="text-center px-10 sm:px-16 py-2">Item</th>
+                      <th class="text-center px-6 sm:px-12 py-2">Type</th>
+                      <th class="text-center px-6 sm:px-12 py-2">Category</th>
+                      <th class="text-center px-4 sm:px-5 py-2 whitespace-nowrap">QTY (pcs.)</th>
+                      <th class="text-center px-4 sm:px-5 py-2 whitespace-nowrap">QTY (box)</th>
+                      <th class="text-center px-2 sm:px-2 py-2">Floor</th>
+                      <th class="text-center px-2 sm:px-2 py-2">Rack</th>
+                      <th class="text-center px-10 sm:px-16 py-2 whitespace-nowrap">Expiry date</th>
+                    </tr>
+                  </thead>
 
-                      <!-- item name input -->
-                      <td class="text-left px-2  py-2"><input id="searchInput" type="text" class="w-full border border-gray-300 px-2 py-1 rounded-md">
-                        <ul id="autocompleteResults" class="absolute z-10 left-30 w-30 mt-1 max-h-32 overflow-y-auto px-3 py-2 bg-white border border-gray-300 rounded-md shadow-lg hidden"></ul></td>
-                      
-                       <!-- type of item input -->
+                  <!-- content of table -->
+                  <tbody id="stock-table-body" class="bg-white text-black font-regular text-sm">
+                    <tr>
+                      <td class="text-left px-2 py-2"><input type="text" name="item" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
                       <td class="text-left px-2 py-2">
-                          <select class="w-full border border-gray-300 px-2 py-1 rounded-md">
-                            <option disabled selected value="" hidden>Select type</option>
+                        <select name="item_type" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                          <option disabled selected value="" hidden>Select type</option>
                             <option>Sachet</option>
                             <option>Packs</option>
                             <option>Cans</option>
@@ -435,42 +428,32 @@
                             <option>Bottle</option>
                             <option class="text-gray-400">&#43; Add type</option>
                             <option class="text-gray-400">&#8722; Delete category</option>
-                          </select>
+                        </select>
                       </td>
-
-                       <!-- category of item input -->
                       <td class="text-left px-2 py-2">
-                        <select class="w-full border border-gray-300 px-2 py-1 rounded-md">
-                          <option disabled selected value=""hidden>Select category</option>
+                        <select name="category" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                          <option disabled selected value="" hidden>Select category</option>
                           <option>Food</option>
                           <option>Hygiene</option>
                           <option>Comfort</option>
                           <option>Kitchen</option>
                           <option>Disaster</option>
-                          <option class="text-gray-400">&#43; Add category</option>
+                          <option option class="text-gray-400">&#43; Add category</option>
                           <option class="text-gray-400">&#8722; Delete category</option>
                         </select>
                       </td>
-
-                      <!-- Quantity per item -->
-                      <td class="text-left px-2  py-2 whitespace-nowrap"><input type="number" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
-
-                       <!-- Quantity per box -->
-                       <td class="text-left px-2  py-2 whitespace-nowrap"><input type="number" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
-
-                      <!-- location of stock floor -->
+                      <td class="text-left px-2 py-2"><input type="number" name="pieces" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
+                      <td class="text-left px-2 py-2"><input type="number" name="box" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
                       <td class="text-center px-2 py-2">
-                        <select class="w-30 border border-gray-300 px-2 py-1 rounded-md">
+                        <select name="floor" class="w-30 border border-gray-300 px-2 py-1 rounded-md">
                           <option disabled selected value="" hidden>Floor</option>
                           <option>1st Floor</option>
                           <option>2nd Floor</option>
                           <option>Outside</option>
                         </select>
                       </td>
-
-                      <!-- location of stock rack -->
                       <td class="text-center px-2 py-2">
-                        <select class="w-30 border border-gray-300 px-2 py-1 rounded-md">
+                        <select name="rack" class="w-30 border border-gray-300 px-2 py-1 rounded-md">
                           <option disabled selected value="" hidden>Rack</option>
                           <option>Rack 1</option>
                           <option>Rack 2</option>
@@ -482,35 +465,107 @@
                           <option>Outside</option>
                         </select>
                       </td>
-                      <td class="center px-2 py-2 whitespace-nowrap"><input type="date" class="w-full border border-gray-300 px-3 py-1 rounded-md"></td>
+                      <td class="text-center px-2 py-2"><input type="date" name="expiry_date" class="w-full border border-gray-300 px-3 py-1 rounded-md"></td>
                     </tr>
-
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                       <!-- just for adding multiple stock -->
-                      <td class="text-center px-2 py-2 whitespace-nowrap">
-                        <div class="text-sm flex ml-auto">
-                          <a href="">
-                            <button type="button" class="cursor-pointer mb-3 transition-all bg-blue-700 text-white px-6 py-2 rounded-lg border-blue-800 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-                            active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-blue-300 shadow-blue-300 active:shadow-none ">
-                            <i class="fa-solid fa-plus text-white mr-2"></i>Add multiple stock 
-                            </button>
-                          </a>
-                        </div>
-                      </td>
-                    </tr> 
-                </tbody>
-            </table>
+                  </tbody>
+                </table>
+                <button type="button" id="add-stock-row" class="cursor-pointer mb-3 transition-all bg-blue-700 text-white px-6 py-2 rounded-lg border-blue-800 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-blue-300 shadow-blue-300 active:shadow-none">
+                <i class="fa-solid fa-plus text-white mr-2"></i>Add multiple stock
+                </button>
+                <button type="button" id="submit-stock-data" class="cursor-pointer mb-3 transition-all bg-green-700 text-white px-6 py-2 rounded-lg border-green-800 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-green-300 shadow-green-300 active:shadow-none">
+                Submit
+                </button>
+              
+            </div>
           </div>
-        </div>          
-                      
+        </form>
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              const addStockRowButton = document.getElementById("add-stock-row");
+              const submitStockDataButton = document.getElementById("submit-stock-data");
+              const stockForm = document.getElementById("stock-form");
+        
+              addStockRowButton.addEventListener("click", function() {
+                const newRow = `
+                  <tr>
+                    <td class="text-left px-2 py-2"><input type="text" name="item" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
+                    <td class="text-left px-2 py-2">
+                      <select name="item_type" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                        <option disabled selected value="" hidden>Select type</option>
+                        <option>Sachet</option>
+                        <option>Packs</option>
+                        <option>Cans</option>
+                        <option>Sacks</option>
+                        <option>Bottle</option>
+                        <option class="text-gray-400">&#43; Add type</option>
+                        <option class="text-gray-400">&#8722; Delete category</option>
+                      </select>
+                    </td>
+                    <td class="text-left px-2 py-2">
+                      <select name="category" class="w-full border border-gray-300 px-2 py-1 rounded-md">
+                        <option disabled selected value="" hidden>Select category</option>
+                        <option>Food</option>
+                        <option>Hygiene</option>
+                        <option>Comfort</option>
+                        <option>Kitchen</option>
+                        <option>Disaster</option>
+                        <option option class="text-gray-400">&#43; Add category</option>
+                        <option class="text-gray-400">&#8722; Delete category</option>
+                      </select>
+                    </td>
+                    <td class="text-left px-2 py-2"><input type="number" name="pieces" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
+                    <td class="text-left px-2 py-2"><input type="number" name="box" class="w-full border border-gray-300 px-2 py-1 rounded-md"></td>
+                    <td class="text-center px-2 py-2">
+                      <select name="floor" class="w-30 border border-gray-300 px-2 py-1 rounded-md">
+                        <option disabled selected value="" hidden>Floor</option>
+                        <option>1st Floor</option>
+                        <option>2nd Floor</option>
+                        <option>Outside</option>
+                      </select>
+                    </td>
+                    <td class="text-center px-2 py-2">
+                      <select name="rack" class="w-30 border border-gray-300 px-2 py-1 rounded-md">
+                        <option disabled selected value="" hidden>Rack</option>
+                        <option>Rack 1</option>
+                        <option>Rack 2</option>
+                        <option>Rack 3</option>
+                        <option>Rack 4</option>
+                        <option>Rack 5</option>
+                        <option>Rack 6</option>
+                        <option>Unspecified</option>
+                        <option>Outside</option>
+                      </select>
+                    </td>
+                    <td class="text-center px-2 py-2"><input type="date" name="expiry_date" class="w-full border border-gray-300 px-3 py-1 rounded-md"></td>
+                  </tr>
+                `;
+                document.getElementById("stock-table-body").insertAdjacentHTML("beforeend", newRow);
+              });
+        
+              document.getElementById("submit-stock-data").addEventListener("click", async function() {
+                try {
+                  const formData = new FormData(document.getElementById("stock-form"));
+                  const data = Object.fromEntries(formData.entries());
+                  const response = await fetch('http://localhost:8080/submit-stock-data', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                  });
+                  if (!response.ok) {
+                    throw new Error('Error submitting stock data');
+                  } 
+                  alert('Stock data submitted successfully!');
+                  // Add any additional actions after successful submission
+                } catch (error) {
+                  console.error('Error submitting stock data:', error.message);
+                  alert('An error occurred while submitting stock data');
+                }
+              });
+            });       
+            </script>
+                        
               <!-- buttons --> 
               <div class="text-sm mt-5 flex ml-auto gap-2"> <!-- for alignment of buttons --> 
 
